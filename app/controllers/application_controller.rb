@@ -12,4 +12,10 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+  def admin
+    if !current_user.admin
+      flash[:alert] = 'Not Authorized!'
+      redirect_to root_path
+    end
+  end
 end
