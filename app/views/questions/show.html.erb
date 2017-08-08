@@ -1,0 +1,28 @@
+<h1><%= @question.title%></h1>
+<h3><%= @question.description%></h3>
+  <% if @question.votes %>
+Votes: <%= @question.votes %>
+<% else %>
+<small>Be the first to vote it up!</small>
+<% end %><%= link_to 'Vote Up', upvote_path(question:@question)%>
+
+<% if @question.answers.any?%>
+<ul>
+<h4>Answers</h4>
+<% @question.answers.each do |answer| %>
+<li>
+  <%=answer.description%> | by <%= link_to answer.user.username, user_path(answer.user)%>
+<% end %>
+</ul>
+<% else %>
+<h3>This Question has no answers yet!</h3>
+<small>Post One Now!</small>
+<% end %>
+<p><%= link_to 'New Answer', new_question_answer_path(@question)%></p>
+
+<hr>
+<p><%= link_to 'Edit Question', edit_question_path(@question)%></p>
+<p><%= link_to 'Delete Question', question_path(@question),
+                          :data => {:confirm => "Are you sure?",
+                                         :method => "delete"}
+                                         %></p>
