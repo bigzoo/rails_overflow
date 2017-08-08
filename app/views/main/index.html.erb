@@ -1,7 +1,25 @@
-<% if current_user%>
-Logged in as <%= current_user.email %>
-<%= link_to 'Log Out',  logout_path, method:'delete'%>
+<h3>Rails Overflow</h3>
+<% if @questions.any? %>
+<ul>
+  <h4>Top Questions</h4>
+  <% @questions.each do |question|%>
+  <li>
+   <%= link_to question.title, question_path(question) %> |
+   by <%= link_to question.user.username, user_path(question.user) %> |
+  <%= link_to 'Edit', edit_question_path(question) %> |
+   <% if question.votes %>
+   Votes: <%= question.votes %>
+   <% else %>
+   Be the first to vote it up!
+   <% end %> |
+   Answers: <%= question.answers.count%>
+   </li>
+
+<% end %>
+</ul>
 <%else%>
-<%= link_to 'Sign Up', signup_path%>
-<%= link_to 'Log In', login_path%>
+<h1>No questions yet</h1>
 <%end%>
+
+<hr>
+<p><%= link_to "New Question", new_question_path%></p>
