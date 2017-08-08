@@ -4,9 +4,14 @@ class SessionsController < ApplicationController
   end
   def create
     user = User.find_by_email(params[:email])
+    username = User.find_by_username(params[:email])
     if user && user.authenticate(params[:password])
       flash[:alert] = "Succesful"
       session[:user_id] = user.id
+      redirect_to root_path
+    elsif username && username.authenticate(params[:password])
+      flash[:alert] = "Succesful"
+      session[:user_id] = username.id
       redirect_to root_path
     else
       flash[:alert] = "Email or password wrong"
