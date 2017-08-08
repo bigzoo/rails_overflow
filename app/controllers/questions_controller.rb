@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :authorize, only: [:new, :edit, :destroy, :upvote]
   def new
     @question = Question.new
   end
