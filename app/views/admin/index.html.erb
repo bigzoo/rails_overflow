@@ -1,5 +1,6 @@
 <h2>This is where Admin actions are carried out!</h2>
-
+<h4>System has <%= @others.count %> Users excluding yourself, <%= User.all.where(admin:true).select{|x| x != current_user}.count%> of which are admins.</h4>
+<p>Questions asked today: <%= @todays_questions.count%> while <%= @todays_answers.count%> new answers have been recorded today.</p>
 <div class="well">
   <h4>Make other users admins</h4>
   <%= form_tag admin_path do %>
