@@ -1,0 +1,24 @@
+<h2>This is where Admin actions are carried out!</h2>
+
+<div class="well">
+  <h4>Make other users admins</h4>
+  <%= form_tag admin_path do %>
+      <%=  select_tag(:user_id, options_from_collection_for_select(@users, :id, :email)) %>
+      <%= submit_tag 'Make Admin'%>
+  <% end%>
+</div>
+<div class="well">
+  <h4>Remove users as admins</h4>
+  <%= form_tag deadmin_path do %>
+      <%=  select_tag(:user_id, options_from_collection_for_select(@admins, :id, :email)) %>
+      <%= submit_tag 'Remove Admin'%>
+  <% end%>
+</div>
+<div class="">
+  <h4>Delete Users</h4>
+  <%= form_tag admin_path, method:'delete' do %>
+      <%=  select_tag(:user_id, options_from_collection_for_select(@others, :id, :email)) %>
+      <%= submit_tag 'Delete User', :data => {:confirm => "Are you sure?",
+                                         :method => "delete"} %>
+  <% end%>
+</div>
