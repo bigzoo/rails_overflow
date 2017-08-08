@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
   def authorize
-    redirect_to login_path, flash[:alert] = 'Not Logged In' if current_user.nil?
+    if current_user.nil?
+      flash[:alert] = 'Please Log In First'
+      redirect_to login_path
+    end
   end
 end
