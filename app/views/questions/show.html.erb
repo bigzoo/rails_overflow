@@ -1,22 +1,36 @@
 <h1><%= @question.title%></h1>
 <h3><%= @question.description%></h3>
-  <% if @question.votes %>
-Votes: <%= @question.votes %>
+<% if @question.votes %>
+Votes:
+<%= @question.votes %>
 <% else %>
 <small>Be the first to vote it up!</small>
 <% end %><%= link_to 'Vote Up', upvote_path(question:@question)%>
-
+Answers: <%= @question.answers.count%>
+<% if current_user%>
 <% if @question.answers.any?%>
 <ul>
-<h4>Answers</h4>
-<% @question.answers.each do |answer| %>
-<li>
-  <%=answer.description%> | by <%= link_to answer.user.username, user_path(answer.user)%>
-<% end %>
-</ul>
+  <h4>Answers</h4>
+  <% @question.answers.each do |answer| %>
+  <li>
+    <%=answer.description%>
+    | by
+    <%= link_to answer.user.username, user_path(answer.user)%>
+    |
+    <% if answer.votes %>
+    Votes:
+    <%= answer.votes %>
+    <% else %>
+    <small>Be the first to vote it up!</small>
+    <% end %><%= link_to 'Vote Up', upvote_answer_path(answer:answer  )%>
+    <% end %>
+  </ul>
+  <% else %>
+  <h3>This Question has no answers yet!</h3>
+  <small>Post One Now!</small>
+  <% end %>
 <% else %>
-<h3>This Question has no answers yet!</h3>
-<small>Post One Now!</small>
+<h3>Please Log In To See Answers</h3>
 <% end %>
 <p><%= link_to 'New Answer', new_question_answer_path(@question)%></p>
 
