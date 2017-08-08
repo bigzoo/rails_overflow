@@ -5,6 +5,10 @@ class AdminController < ApplicationController
     @admins = User.all.where(admin:true)
     all = User.all
     @others = all.select{|x| x != current_user}
+    qs = Question.all
+    @todays_questions = qs.select{|x| x.created_at.to_date == Date.current}
+    ans = Answer.all
+    @todays_answers = ans.select{|x| x.created_at.to_date == Date.current}
   end
   def create
     @user = User.find(params[:user_id])
