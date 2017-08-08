@@ -1,0 +1,23 @@
+<h1>Rails Overflow</h1>
+<% if @questions.any? %>
+<ul>
+  <% @questions.each do |question|%>
+  <li>
+   <%= link_to question.title, question_path(question) %> |
+   by <%= link_to question.user.username, user_path(question.user) %> |
+  <%= link_to 'Edit', edit_question_path(question) %> |
+   <% if question.votes %>
+   Votes: <%= question.votes %>
+   <% else %>
+   Be the first to vote it up!
+   <% end %>
+   </li>
+
+<% end %>
+</ul>
+<%else%>
+<h1>No questions yet</h1>
+<%end%>
+
+<hr>
+<p><%= link_to "New Question", new_question_path%></p>
